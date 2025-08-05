@@ -1,1 +1,55 @@
-pipeline {}
+pipeline {
+    agent any
+
+    enviroment {
+        REPO_PROJECT = 'https://github.com/linux-best/web-application-test/'
+    }
+    stages {
+        stage("Checkout SCM") {
+            steps {
+                echo "Checking out the ${env.REPO_PROJECT} from SCM"
+                git branch: 'main', url: "${env.REPO_PROJECT}"
+            }
+        }
+        stage("Build") {
+            steps {
+                sh "sudo pip install -r requirments.txt"
+            }
+        }
+        stage("Test") {
+            steps {
+                sh "pytest app_tests/login_test.py"
+            }
+        }
+        stage("Deploy") {
+            steps {
+                echo "Application Ready to Deploy the (peneration test)"
+                // run the pen build
+            }
+        }
+    }
+    post {
+        success {
+            echo "Done !"
+            script {
+                emailext(
+                    subject: "Build ${env.BUILD_NUMBER} of ${env.JOB_NAME} was successful",
+                    body: """
+                    Check the detals at ${env.BUILD_URL}""",
+                    to: "amirmahdifhp@gmail.com"
+                )
+            }
+        } // email
+        failure {
+            echo "Fuck !!"
+            script {
+                emailext(
+                    subject: "Build ${env.BUILD_NUMBER} of ${env.JOB_NAME} was failed",
+                    body: """
+                    Check the details at ${env.BUILD_URL}""",
+                    to: "amirmahdifhp@gmail.com"
+                )
+            }
+        } // email
+    }
+}
