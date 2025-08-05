@@ -5,13 +5,13 @@ import time
 
 driver = webdriver.Chrome()
 driver.get('https://127.0.0.1:3901')
-username_input = driver.find_element(By.ID ,"username")
-password_input = driver.find_element(By.ID ,"password")
+username_input = driver.find_element(By.NAME ,"username")
+password_input = driver.find_element(By.NAME ,"password")
 
 username_input.send_keys("admin")
 password_input.send_keys("admin123")
 
-login_button = driver.find_element(By.ID ,"login_button")
+login_button = driver.find_element(By.NAME ,"login_button")
 
 login_button.click()
 time.sleep(5)
