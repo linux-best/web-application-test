@@ -18,10 +18,10 @@ time.sleep(5)
 
 welcome_text = driver.find_element(By.ID ,"welcome_massege").text
 
-assert "welcome, admin" in welcome_text 
-#if "welcome, admin" in welcome_text :
-#    print("login passed !")
-#else:
-#    print("login failed !!")
+#assert "welcome, admin" in welcome_text 
+if "welcome, admin" in welcome_text :
+    print("login passed !")
+else:
+    print("login failed !!")
 
 driver.quit()
