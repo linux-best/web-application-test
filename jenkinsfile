@@ -21,7 +21,7 @@ pipeline {
         stage("Test") {
             steps {
                 sh "pwd"
-                sh "pytest --suppress-no-test-exit-code app_tests/login_test.py"
+                sh "sudo pytest --suppress-no-test-exit-code app_tests/login_test.py"
             }
         }
         stage("Deploy") {
