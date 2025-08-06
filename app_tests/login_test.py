@@ -5,38 +5,51 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 import time
 
-chrome_options = Options()
+User = "username"
+passwd = "password"
+Condition = "You have logged in as 'admin'" 
 
-# Add any desired Chrome options, e.g., headless mode for Jenkins
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--no-sandbox") # Important for Jenkins
-chrome_options.add_argument("--disable-dev-shm-usage") # Important for Jenkins
-chrome_options.binary_location = "/usr/bin/google-chrome-stable"
+def login_test():
+    
+    chrome_options = Options()
 
-# Replace with the actual path to your chromedriver executable
-service_driver = Service("/usr/local/bin/chromedriver-linux64/chromedriver")
-driver = webdriver.Chrome(service=service_driver , options=chrome_options)
+    # Add any desired Chrome options, e.g., headless mode for Jenkins
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox") # Important for Jenkins
+    chrome_options.add_argument("--disable-dev-shm-usage") # Important for Jenkins
+    chrome_options.binary_location = "/usr/bin/google-chrome-stable"
 
-driver.get('http://127.0.0.1:8081/login.php')
-print(driver.title)
-username_input = driver.find_element(By.NAME ,"username")
-password_input = driver.find_element(By.NAME ,"password")
+    # Replace with the actual path to your chromedriver executable
+    service_driver = Service("/usr/local/bin/chromedriver-linux64/chromedriver")
+    driver = webdriver.Chrome(service=service_driver , options=chrome_options)
 
-username_input.send_keys("admin")
-password_input.send_keys("password")
+    assert User == "username"
+    assert passwd == "password"
 
-login_button = driver.find_element(By.NAME ,"Login")
+    driver.get('http://127.0.0.1:8081/login.php')
+    print(driver.title)
+    username_input = driver.find_element(By.NAME ,User)
+    password_input = driver.find_element(By.NAME ,passwd)
 
-login_button.click()
-time.sleep(5)
+    username_input.send_keys("admin")
+    password_input.send_keys("password")
 
-welcome_text = driver.find_element(By.ID ,"main_body").text
-print(welcome_text)
+    login_button = driver.find_element(By.NAME ,"Login")
 
-assert "Welcome to Damn Vulnerable Web Application!" in welcome_text
-if "Welcome to Damn Vulnerable Web Application!" in welcome_text :
-    print("login passed !")
-else:
-    print("login failed !!")
+    login_button.click()
+    time.sleep(5)
 
-driver.quit()
+    welcome_text = driver.find_element(By.ID ,"main_body").text
+    print(welcome_text)
+
+    assert "Welcome to Damn Vulnerable Web Application!" in welcome_text
+    assert Condition in welcome_text
+    
+    if "Welcome to Damn Vulnerable Web Application!" in welcome_text :
+        print("login passed !")
+    else:
+        print("login failed !!")
+
+    driver.quit()
+
+login_test()
