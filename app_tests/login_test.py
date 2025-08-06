@@ -11,6 +11,7 @@ chrome_options = Options()
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox") # Important for Jenkins
 chrome_options.add_argument("--disable-dev-shm-usage") # Important for Jenkins
+chrome_options.binary_location = "/usr/bin/google-chrome-stable"
 
 # Replace with the actual path to your chromedriver executable
 service_driver = Service("/usr/local/bin/chromedriver-linux64/chromedriver")
