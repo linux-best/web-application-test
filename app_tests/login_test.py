@@ -2,9 +2,20 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
+from selenium.webdriver.chrome.options import Options
 
-driver = webdriver.Firefox()
+chrome_options = Options()
+
+# Add any desired Chrome options, e.g., headless mode for Jenkins
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--no-sandbox") # Important for Jenkins
+chrome_options.add_argument("--disable-dev-shm-usage") # Important for Jenkins
+
+# Replace with the actual path to your chromedriver executable
+driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver-linux64/chromedriver", options=chrome_options)
+
 driver.get('http://127.0.0.1:8081/login.php')
+print(driver.title)
 username_input = driver.find_element(By.NAME ,"username")
 password_input = driver.find_element(By.NAME ,"password")
 
