@@ -1,0 +1,170 @@
+Started by user javande
+Obtained jenkinsfile from git https://github.com/linux-best/web-application-test/
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/application-test(CA)
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/application-test(CA)/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/linux-best/web-application-test/ # timeout=10
+Fetching upstream changes from https://github.com/linux-best/web-application-test/
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+ > git fetch --tags --force --progress -- https://github.com/linux-best/web-application-test/ +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 3b476892db1c09b1421d2ce1c194ccc930f610ba (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 3b476892db1c09b1421d2ce1c194ccc930f610ba # timeout=10
+Commit message: "Update requirments.txt"
+ > git rev-list --no-walk df98b4ea6384dce787f09e5e3e2a2dd398e464e4 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout SCM)
+[Pipeline] echo
+Checking out the https://github.com/linux-best/web-application-test/ from SCM
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/application-test(CA)/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/linux-best/web-application-test/ # timeout=10
+Fetching upstream changes from https://github.com/linux-best/web-application-test/
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+ > git fetch --tags --force --progress -- https://github.com/linux-best/web-application-test/ +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 3b476892db1c09b1421d2ce1c194ccc930f610ba (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 3b476892db1c09b1421d2ce1c194ccc930f610ba # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D main # timeout=10
+ > git checkout -b main 3b476892db1c09b1421d2ce1c194ccc930f610ba # timeout=10
+Commit message: "Update requirments.txt"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ pwd
+/var/lib/jenkins/workspace/application-test(CA)
+[Pipeline] sh
++ sudo pip install -r requirments.txt
+Requirement already satisfied: selenium in /usr/local/lib/python3.10/dist-packages (from -r requirments.txt (line 1)) (4.34.2)
+Requirement already satisfied: pytest in /usr/local/lib/python3.10/dist-packages (from -r requirments.txt (line 2)) (8.4.1)
+Requirement already satisfied: webdriver-manager in /usr/local/lib/python3.10/dist-packages (from -r requirments.txt (line 3)) (4.0.2)
+Collecting pytest-custom_exit_code
+  Downloading pytest_custom_exit_code-0.3.0-py3-none-any.whl (4.1 kB)
+Requirement already satisfied: urllib3[socks]~=2.5.0 in /usr/local/lib/python3.10/dist-packages (from selenium->-r requirments.txt (line 1)) (2.5.0)
+Requirement already satisfied: websocket-client~=1.8.0 in /usr/local/lib/python3.10/dist-packages (from selenium->-r requirments.txt (line 1)) (1.8.0)
+Requirement already satisfied: trio-websocket~=0.12.2 in /usr/local/lib/python3.10/dist-packages (from selenium->-r requirments.txt (line 1)) (0.12.2)
+Requirement already satisfied: typing_extensions~=4.14.0 in /usr/local/lib/python3.10/dist-packages (from selenium->-r requirments.txt (line 1)) (4.14.1)
+Requirement already satisfied: trio~=0.30.0 in /usr/local/lib/python3.10/dist-packages (from selenium->-r requirments.txt (line 1)) (0.30.0)
+Requirement already satisfied: certifi>=2025.6.15 in /usr/local/lib/python3.10/dist-packages (from selenium->-r requirments.txt (line 1)) (2025.8.3)
+Requirement already satisfied: pluggy<2,>=1.5 in /usr/local/lib/python3.10/dist-packages (from pytest->-r requirments.txt (line 2)) (1.6.0)
+Requirement already satisfied: exceptiongroup>=1 in /usr/local/lib/python3.10/dist-packages (from pytest->-r requirments.txt (line 2)) (1.3.0)
+Requirement already satisfied: pygments>=2.7.2 in /usr/local/lib/python3.10/dist-packages (from pytest->-r requirments.txt (line 2)) (2.19.2)
+Requirement already satisfied: iniconfig>=1 in /usr/local/lib/python3.10/dist-packages (from pytest->-r requirments.txt (line 2)) (2.1.0)
+Requirement already satisfied: tomli>=1 in /usr/local/lib/python3.10/dist-packages (from pytest->-r requirments.txt (line 2)) (2.2.1)
+Requirement already satisfied: packaging>=20 in /usr/lib/python3/dist-packages (from pytest->-r requirments.txt (line 2)) (21.3)
+Requirement already satisfied: requests in /usr/lib/python3/dist-packages (from webdriver-manager->-r requirments.txt (line 3)) (2.25.1)
+Requirement already satisfied: python-dotenv in /usr/local/lib/python3.10/dist-packages (from webdriver-manager->-r requirments.txt (line 3)) (1.1.1)
+Requirement already satisfied: attrs>=23.2.0 in /usr/local/lib/python3.10/dist-packages (from trio~=0.30.0->selenium->-r requirments.txt (line 1)) (25.3.0)
+Requirement already satisfied: outcome in /usr/local/lib/python3.10/dist-packages (from trio~=0.30.0->selenium->-r requirments.txt (line 1)) (1.3.0.post0)
+Requirement already satisfied: idna in /usr/lib/python3/dist-packages (from trio~=0.30.0->selenium->-r requirments.txt (line 1)) (3.3)
+Requirement already satisfied: sortedcontainers in /usr/local/lib/python3.10/dist-packages (from trio~=0.30.0->selenium->-r requirments.txt (line 1)) (2.4.0)
+Requirement already satisfied: sniffio>=1.3.0 in /usr/local/lib/python3.10/dist-packages (from trio~=0.30.0->selenium->-r requirments.txt (line 1)) (1.3.1)
+Requirement already satisfied: wsproto>=0.14 in /usr/local/lib/python3.10/dist-packages (from trio-websocket~=0.12.2->selenium->-r requirments.txt (line 1)) (1.2.0)
+Requirement already satisfied: pysocks!=1.5.7,<2.0,>=1.5.6 in /usr/local/lib/python3.10/dist-packages (from urllib3[socks]~=2.5.0->selenium->-r requirments.txt (line 1)) (1.7.1)
+Requirement already satisfied: h11<1,>=0.9.0 in /usr/local/lib/python3.10/dist-packages (from wsproto>=0.14->trio-websocket~=0.12.2->selenium->-r requirments.txt (line 1)) (0.16.0)
+Installing collected packages: pytest-custom_exit_code
+Successfully installed pytest-custom_exit_code-0.3.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
++ pwd
+/var/lib/jenkins/workspace/application-test(CA)
+[Pipeline] sh
++ pytest app_tests/login_test.py --suppress-no-test-exit-code
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-8.4.1, pluggy-1.6.0
+rootdir: /var/lib/jenkins/workspace/application-test(CA)
+plugins: custom-exit-code-0.3.0
+collected 0 items
+
+============================ no tests ran in 6.98s =============================
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] echo
+Application Ready to Deploy the (peneration test)
+[Pipeline] sh
++ sudo python3 app_tests/login_test.py
+Login :: Damn Vulnerable Web Application (DVWA) v1.10 *Development*
+Welcome to Damn Vulnerable Web Application!
+Damn Vulnerable Web Application (DVWA) is a PHP/MySQL web application that is damn vulnerable. Its main goal is to be an aid for security professionals to test their skills and tools in a legal environment, help web developers better understand the processes of securing web applications and to aid both students & teachers to learn about web application security in a controlled class room environment.
+The aim of DVWA is to practice some of the most common web vulnerabilities, with various levels of difficultly, with a simple straightforward interface.
+
+General Instructions
+It is up to the user how they approach DVWA. Either by working through every module at a fixed level, or selecting any module and working up to reach the highest level they can before moving onto the next one. There is not a fixed object to complete a module; however users should feel that they have successfully exploited the system as best as they possible could by using that particular vulnerability.
+Please note, there are both documented and undocumented vulnerability with this software. This is intentional. You are encouraged to try and discover as many issues as possible.
+DVWA also includes a Web Application Firewall (WAF), PHPIDS, which can be enabled at any stage to further increase the difficulty. This will demonstrate how adding another layer of security may block certain malicious actions. Note, there are also various public methods at bypassing these protections (so this can be seen as an extension for more advanced users)!
+There is a help button at the bottom of each page, which allows you to view hints & tips for that vulnerability. There are also additional links for further background reading, which relates to that security issue.
+
+WARNING!
+Damn Vulnerable Web Application is damn vulnerable! Do not upload it to your hosting provider's public html folder or any Internet facing servers, as they will be compromised. It is recommend using a virtual machine (such as VirtualBox or VMware), which is set to NAT networking mode. Inside a guest machine, you can downloading and install XAMPP for the web server and database.
+
+Disclaimer
+We do not take responsibility for the way in which any one uses this application (DVWA). We have made the purposes of the application clear and it should not be used maliciously. We have given warnings and taken measures to prevent users from installing DVWA on to live web servers. If your web server is compromised via an installation of DVWA it is not our responsibility it is the responsibility of the person/s who uploaded and installed it.
+
+More Training Resources
+DVWA aims to cover the most commonly seen vulnerabilities found in today's web applications. However there are plenty of other issues with web applications. Should you wish to explore any additional attack vectors, or want more difficult challenges, you may wish to look into the following other projects:
+bWAPP
+NOWASP (formerly known as Mutillidae)
+OWASP Broken Web Applications Project
+
+
+
+You have logged in as 'admin'
+login passed !
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (peneration_test)
+[Pipeline] echo
+Application Ready to Deploy the (peneration test)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Done !
+[Pipeline] script
+[Pipeline] {
+[Pipeline] emailext
+Sending email to: amirmahdifhp@gmail.com
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
