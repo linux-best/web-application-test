@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 import time
 
 chrome_options = Options()
@@ -12,12 +13,11 @@ chrome_options.add_argument("--no-sandbox") # Important for Jenkins
 chrome_options.add_argument("--disable-dev-shm-usage") # Important for Jenkins
 
 # Replace with the actual path to your chromedriver executable
-driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver-linux64/chromedriver", options=chrome_options)
+service_driver = Service("/usr/local/bin/chromedriver-linux64/chromedriver")
+driver = webdriver.Chrome(service=service_driver , options=chrome_options)
 
-driver = webdriver.Chrome()
 driver.get('http://127.0.0.1:8081/login.php')
 print(driver.title)
-
 username_input = driver.find_element(By.NAME ,"username")
 password_input = driver.find_element(By.NAME ,"password")
 
