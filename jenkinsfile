@@ -1,9 +1,10 @@
 pipeline {
     agent any
 
-    enviroment {
+    environment {
         REPO_PROJECT = 'https://github.com/linux-best/web-application-test/'
     }
+
     stages {
         stage("Checkout SCM") {
             steps {
