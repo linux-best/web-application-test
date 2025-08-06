@@ -9,9 +9,9 @@ username_input = driver.find_element(By.NAME ,"username")
 password_input = driver.find_element(By.NAME ,"password")
 
 username_input.send_keys("admin")
-password_input.send_keys("admin123")
+password_input.send_keys("password")
 
-login_button = driver.find_element(By.NAME ,"login_button")
+login_button = driver.find_element(By.NAME ,"Login")
 
 login_button.click()
 time.sleep(5)
