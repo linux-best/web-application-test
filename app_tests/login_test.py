@@ -31,6 +31,7 @@ login_button.click()
 time.sleep(5)
 
 welcome_text = driver.find_element(By.ID ,"main_body").text
+print(welcome_text)
 
 #assert "welcome, admin" in welcome_text 
 if "Welcome to Damn Vulnerable Web Application!" in welcome_text :
