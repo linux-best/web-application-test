@@ -14,11 +14,13 @@ pipeline {
         }
         stage("Build") {
             steps {
+                sh "pwd"
                 sh "sudo pip install -r requirments.txt"
             }
         }
         stage("Test") {
             steps {
+                sh "pwd"
                 sh "pytest --suppress-no-test-exit-code app_tests/login_test.py"
             }
         }
