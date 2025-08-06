@@ -28,7 +28,7 @@ pipeline {
                 sh "sudo python3 app_tests/login_test.py"
             }
         }
-        stage("Deploy") {
+        stage("peneration_test") {
             steps {
                 echo "Application Ready to Deploy the (peneration test)"
                 // run the pen build
