@@ -21,13 +21,13 @@ pipeline {
         stage("Test") {
             steps {
                 sh "pwd"
-                sh "pytest app_tests/brute_force_test.py --suppress-no-test-exit-code"
+                sh "pytest app_tests/CSRF_test.py --suppress-no-test-exit-code"
             }
         }
         stage("Deploy") {
             steps {
                 echo "Application Ready to Deploy the (peneration test)"
-                sh "sudo python3 app_tests/brute_force_test.py"
+                sh "sudo python3 app_tests/CSRF_test.py"
             }
         }
         stage("peneration_test") {
