@@ -35,11 +35,11 @@ def Bute_Force(new_paassword):
     brute_field = driver.find_element(By.XPATH ,"//*[contains(text(),'CSRF')]")
     brute_field.click()
 
-    WebDriverWait(driver,5).until(
+    WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,passwd_new))
     )
     pass_new = driver.find_element(By.NAME ,passwd_new)
-    WebDriverWait(driver,5).until(
+    WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,passwd_conf))
     )
     pass_old = driver.find_element(By.NAME ,passwd_conf)
@@ -47,13 +47,13 @@ def Bute_Force(new_paassword):
     pass_old.send_keys(new_paassword)
     pass_new.send_keys(new_paassword)
 
-    WebDriverWait(driver,5).until(
+    WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,"Change"))
     )
     login_button = driver.find_element(By.NAME ,"Change")
     login_button.click()
 
-    WebDriverWait(driver,5).until(
+    WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.CLASS_NAME ,"vulnerable_code_area"))
     )    
     welcome_text = driver.find_element(By.CLASS_NAME ,"vulnerable_code_area").text
@@ -69,11 +69,11 @@ def login_test():
 
     driver.get('http://127.0.0.1:8081/login.php')
     print(driver.title)
-    WebDriverWait(driver,5).until(
+    WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,User))
     )
     username_input = driver.find_element(By.NAME ,User)
-    WebDriverWait(driver,5).until(
+    WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,passwd))
     )
     password_input = driver.find_element(By.NAME ,passwd)
@@ -81,7 +81,7 @@ def login_test():
     username_input.send_keys("admin")
     password_input.send_keys("admin")
 
-    WebDriverWait(driver,5).until(
+    WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,"Login"))
     )
     login_button = driver.find_element(By.NAME ,"Login")
@@ -89,7 +89,7 @@ def login_test():
     login_button.click()
     time.sleep(5)
 
-    WebDriverWait(driver,5).until(
+    WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.ID ,"main_body"))
     )    
     welcome_text = driver.find_element(By.ID ,"main_body").text
