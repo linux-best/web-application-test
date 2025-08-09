@@ -63,7 +63,7 @@ def Bute_Force(new_paassword):
     else:
         print("Password Failed to Change !!")
 
-def login_test(username,password):
+def login_test():
     assert User == "username"
     assert passwd == "password"
 
@@ -78,8 +78,8 @@ def login_test(username,password):
     )
     password_input = driver.find_element(By.NAME ,passwd)
 
-    username_input.send_keys(username)
-    password_input.send_keys(password)
+    username_input.send_keys("admin")
+    password_input.send_keys("admin")
 
     WebDriverWait(driver,5).until(
         EC.presence_of_all_elements_located((By.NAME ,"Login"))
@@ -103,6 +103,6 @@ def login_test(username,password):
     else:
         print("login failed !!")
     
-login_test(username="admin",password="admin")
+login_test()
 Bute_Force(new_paassword="password")
 driver_quit()
