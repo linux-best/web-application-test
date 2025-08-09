@@ -58,7 +58,7 @@ def Bute_Force():
     )    
     welcome_text = driver.find_element(By.ID ,"main_body").text
 
-    if "Welcome to Damn Vulnerable Web Application!" in welcome_text :
+    if "Welcome to the password protected area admin" in welcome_text :
         print("you have goten access !")
     else:
         print("you have failed to get access !!")
