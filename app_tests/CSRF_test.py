@@ -26,7 +26,7 @@ driver = webdriver.Chrome(service=service_driver , options=chrome_options)
 def driver_quit():
     driver.quit()
 
-def Bute_Force(new_paassword,old_password):
+def Bute_Force(new_paassword):
     passwd_new = "password_new"
     passwd_conf = "password_conf"
     WebDriverWait(driver,5).until(
@@ -44,7 +44,7 @@ def Bute_Force(new_paassword,old_password):
     )
     pass_old = driver.find_element(By.NAME ,passwd_conf)
 
-    pass_old.send_keys(old_password)
+    pass_old.send_keys(new_paassword)
     pass_new.send_keys(new_paassword)
 
     WebDriverWait(driver,5).until(
@@ -104,5 +104,5 @@ def login_test(username,password):
         print("login failed !!")
     
 login_test(username="admin",password="admin")
-Bute_Force(old_password="admin",new_paassword="password")
+Bute_Force(new_paassword="password")
 driver_quit()
