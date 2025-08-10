@@ -15,7 +15,7 @@ username = ["amir","admin"]
 password = ["123","am123","admin"]
 
 def login_test():
-    
+    global login_element    
     chrome_options = Options()
 
     # Add any desired Chrome options, e.g., headless mode for Jenkins
