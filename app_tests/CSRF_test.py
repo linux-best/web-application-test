@@ -88,10 +88,7 @@ def login_test():
 
     login_button.click()
     time.sleep(5)
-
-    WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.ID ,"main_body"))
-    )    
+  
     welcome_text = driver.find_element(By.ID ,"main_body").text
     print(welcome_text)
 
