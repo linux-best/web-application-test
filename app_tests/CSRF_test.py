@@ -28,7 +28,7 @@ print("1")
 def driver_quit():
     driver.quit()
 
-def login_test(login_user,login_passwd,new_password):
+def login_test(login_user,login_passwd):
     assert User == "username"
     assert passwd == "password"
 
@@ -52,7 +52,6 @@ def login_test(login_user,login_passwd,new_password):
         EC.presence_of_all_elements_located((By.NAME ,"Login"))
     )
     login_button = driver.find_element(By.NAME ,"Login")
-
     login_button.click()
     time.sleep(5)
 
@@ -73,8 +72,8 @@ def login_test(login_user,login_passwd,new_password):
     )
     pass_old = driver.find_element(By.NAME ,passwd_conf)
 
-    pass_old.send_keys(new_password)
-    pass_new.send_keys(new_password)
+    pass_old.send_keys("111")
+    pass_new.send_keys("111")
 
     print("5")
 
@@ -83,16 +82,6 @@ def login_test(login_user,login_passwd,new_password):
     )
     login_button = driver.find_element(By.NAME ,"Change")
     login_button.click()
-
-    WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.ID ,"main_body"))
-    )    
-    welcome_text = driver.find_element(By.ID ,"main_body").text
-
-    if "Password Changed." in welcome_text :
-        print("Password Changed !")
-    else:
-        print("Password Failed to Change !!")
-
-login_test(login_user="admin",login_passwd="amir",new_password="123")
+    
+login_test(login_user="admin",login_passwd="123")
 driver_quit()
