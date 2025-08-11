@@ -28,46 +28,7 @@ print("1")
 def driver_quit():
     driver.quit()
 
-def Brute_Force(new_paassword):
-    passwd_new = "password_new"
-    passwd_conf = "password_conf"
-    WebDriverWait(driver,5).until(
-        EC.presence_of_all_elements_located((By.XPATH ,"//*[contains(text(),'CSRF')]"))
-    )
-    brute_field = driver.find_element(By.XPATH ,"//*[contains(text(),'CSRF')]")
-    brute_field.click()
-    print("4")
-    WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.NAME ,passwd_new))
-    )
-    pass_new = driver.find_element(By.NAME ,passwd_new)
-    WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.NAME ,passwd_conf))
-    )
-    pass_old = driver.find_element(By.NAME ,passwd_conf)
-
-    pass_old.send_keys(new_paassword)
-    pass_new.send_keys(new_paassword)
-
-    print("5")
-
-    WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.NAME ,"Change"))
-    )
-    login_button = driver.find_element(By.NAME ,"Change")
-    login_button.click()
-
-    WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.ID ,"main_body"))
-    )    
-    welcome_text = driver.find_element(By.ID ,"main_body").text
-
-    if "Password Changed." in welcome_text :
-        print("Password Changed !")
-    else:
-        print("Password Failed to Change !!")
-
-def login_test(login_user="admin",login_passwd="amir"):
+def login_test(login_user,login_passwd,new_password):
     assert User == "username"
     assert passwd == "password"
 
@@ -107,7 +68,44 @@ def login_test(login_user="admin",login_passwd="amir"):
         print("login passed !")
     else:
         print("login failed !!")
-    #Brute_Force(new_paassword='amir')
 
-login_test()
+    passwd_new = "password_new"
+    passwd_conf = "password_conf"
+    WebDriverWait(driver,5).until(
+        EC.presence_of_all_elements_located((By.XPATH ,"//*[contains(text(),'CSRF')]"))
+    )
+    brute_field = driver.find_element(By.XPATH ,"//*[contains(text(),'CSRF')]")
+    brute_field.click()
+    print("4")
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.NAME ,passwd_new))
+    )
+    pass_new = driver.find_element(By.NAME ,passwd_new)
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.NAME ,passwd_conf))
+    )
+    pass_old = driver.find_element(By.NAME ,passwd_conf)
+
+    pass_old.send_keys(new_password)
+    pass_new.send_keys(new_password)
+
+    print("5")
+
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.NAME ,"Change"))
+    )
+    login_button = driver.find_element(By.NAME ,"Change")
+    login_button.click()
+
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.ID ,"main_body"))
+    )    
+    welcome_text = driver.find_element(By.ID ,"main_body").text
+
+    if "Password Changed." in welcome_text :
+        print("Password Changed !")
+    else:
+        print("Password Failed to Change !!")
+
+login_test(login_user="admin",login_passwd="amir",new_password="123")
 driver_quit()
