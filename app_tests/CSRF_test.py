@@ -28,7 +28,7 @@ print("1")
 def driver_quit():
     driver.quit()
 
-def Bute_Force(new_paassword):
+def Brute_Force(new_paassword):
     passwd_new = "password_new"
     passwd_conf = "password_conf"
     WebDriverWait(driver,5).until(
@@ -107,7 +107,7 @@ def login_test(login_user="admin",login_passwd="123"):
         print("login passed !")
     else:
         print("login failed !!")
-    Brute_Force(new_password="amir")
+    Brute_Force(new_paassword='amir')
 
 login_test()
 driver_quit()
