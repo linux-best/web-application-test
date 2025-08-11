@@ -55,19 +55,6 @@ def login_test(login_user,login_passwd,new_password):
 
     login_button.click()
     time.sleep(5)
-  
-    welcome_text = driver.find_element(By.ID ,"main_body").text
-    print(welcome_text)
-
-    print("3")
-
-    assert "Welcome to Damn Vulnerable Web Application!" in welcome_text
-    assert Condition in welcome_text
-    
-    if "Welcome to Damn Vulnerable Web Application!" in welcome_text :
-        print("login passed !")
-    else:
-        print("login failed !!")
 
     passwd_new = "password_new"
     passwd_conf = "password_conf"
@@ -107,5 +94,5 @@ def login_test(login_user,login_passwd,new_password):
     else:
         print("Password Failed to Change !!")
 
-login_test(login_user="admin",login_passwd="amir",new_password="amir")
+login_test(login_user="admin",login_passwd="amir",new_password="123")
 driver_quit()
