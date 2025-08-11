@@ -1,4 +1,4 @@
-from selenium import webdriver
+from selenium import webdriver 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
@@ -23,10 +23,45 @@ chrome_options.binary_location = "/usr/bin/google-chrome-stable"
 service_driver = Service("/usr/local/bin/chromedriver-linux64/chromedriver")
 driver = webdriver.Chrome(service=service_driver , options=chrome_options)
 
-print("1")
-
 def driver_quit():
     driver.quit()
+
+def Bute_Force(new_paassword):
+    passwd_new = "password_new"
+    passwd_conf = "password_conf"
+    WebDriverWait(driver,5).until(
+        EC.presence_of_all_elements_located((By.XPATH ,"//*[contains(text(),'CSRF')]"))
+    )
+    brute_field = driver.find_element(By.XPATH ,"//*[contains(text(),'CSRF')]")
+    brute_field.click()
+
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.NAME ,passwd_new))
+    )
+    pass_new = driver.find_element(By.NAME ,passwd_new)
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.NAME ,passwd_conf))
+    )
+    pass_old = driver.find_element(By.NAME ,passwd_conf)
+
+    pass_old.send_keys(new_paassword)
+    pass_new.send_keys(new_paassword)
+
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.NAME ,"Change"))
+    )
+    login_button = driver.find_element(By.NAME ,"Change")
+    login_button.click()
+
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.ID ,"main_body"))
+    )    
+    welcome_text = driver.find_element(By.CLASS_NAME ,"vulnerable_code_area").text
+
+    if "Password Changed." in welcome_text :
+        print("Password Changed !")
+    else:
+        print("Password Failed to Change !!")
 
 def login_test(login_user,login_passwd):
     assert User == "username"
@@ -43,8 +78,6 @@ def login_test(login_user,login_passwd):
     )
     password_input = driver.find_element(By.NAME ,passwd)
 
-    print("2")
-
     username_input.send_keys(login_user)
     password_input.send_keys(login_passwd)
 
@@ -52,36 +85,24 @@ def login_test(login_user,login_passwd):
         EC.presence_of_all_elements_located((By.NAME ,"Login"))
     )
     login_button = driver.find_element(By.NAME ,"Login")
+
     login_button.click()
     time.sleep(5)
 
-    passwd_new = "password_new"
-    passwd_conf = "password_conf"
-    WebDriverWait(driver,5).until(
-        EC.presence_of_all_elements_located((By.XPATH ,"//*[contains(text(),'CSRF')]"))
-    )
-    brute_field = driver.find_element(By.XPATH ,"//*[contains(text(),'CSRF')]")
-    brute_field.click()
-    print("4")
     WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.NAME ,passwd_new))
-    )
-    pass_new = driver.find_element(By.NAME ,passwd_new)
-    WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.NAME ,passwd_conf))
-    )
-    pass_old = driver.find_element(By.NAME ,passwd_conf)
+        EC.presence_of_all_elements_located((By.ID ,"main_body"))
+    )    
+    welcome_text = driver.find_element(By.ID ,"main_body").text
+    print(welcome_text)
 
-    pass_old.send_keys("123")
-    pass_new.send_keys("123")
-
-    print("5")
-
-    WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.NAME ,"Change"))
-    )
-    login_button = driver.find_element(By.NAME ,"Change")
-    login_button.click()
+    assert "Welcome to Damn Vulnerable Web Application!" in welcome_text
+    assert Condition in welcome_text
     
-login_test(login_user="admin",login_passwd="111")
+    if "Welcome to Damn Vulnerable Web Application!" in welcome_text :
+        print("login passed !")
+    else:
+        print("login failed !!")
+    
+login_test(login_user="admin",login_passwd="123")
+Bute_Force(new_paassword="password")
 driver_quit()
