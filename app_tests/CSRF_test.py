@@ -67,7 +67,7 @@ def Brute_Force(new_paassword):
     else:
         print("Password Failed to Change !!")
 
-def login_test(login_user="admin",login_passwd="123"):
+def login_test(login_user="admin",login_passwd="amir"):
     assert User == "username"
     assert passwd == "password"
 
@@ -107,7 +107,7 @@ def login_test(login_user="admin",login_passwd="123"):
         print("login passed !")
     else:
         print("login failed !!")
-    Brute_Force(new_paassword='amir')
+    #Brute_Force(new_paassword='amir')
 
 login_test()
 driver_quit()
