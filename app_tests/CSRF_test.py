@@ -79,7 +79,7 @@ def login_test():
     password_input = driver.find_element(By.NAME ,passwd)
 
     username_input.send_keys("admin")
-    password_input.send_keys("admin")
+    password_input.send_keys("password")
 
     WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,"Login"))
@@ -101,5 +101,5 @@ def login_test():
         print("login failed !!")
     
 login_test()
-Bute_Force(new_paassword="password")
+Bute_Force(new_paassword="admin")
 driver_quit()
