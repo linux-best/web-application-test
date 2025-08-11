@@ -72,8 +72,8 @@ def login_test(login_user,login_passwd):
     )
     pass_old = driver.find_element(By.NAME ,passwd_conf)
 
-    pass_old.send_keys("111")
-    pass_new.send_keys("111")
+    pass_old.send_keys("123")
+    pass_new.send_keys("123")
 
     print("5")
 
@@ -83,5 +83,5 @@ def login_test(login_user,login_passwd):
     login_button = driver.find_element(By.NAME ,"Change")
     login_button.click()
     
-login_test(login_user="admin",login_passwd="123")
+login_test(login_user="admin",login_passwd="111")
 driver_quit()
