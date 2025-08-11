@@ -28,7 +28,7 @@ print("1")
 def driver_quit():
     driver.quit()
 
-def login_test(login_user,login_passwd,new_password):
+def login_test(login_user,login_passwd):
     assert User == "username"
     assert passwd == "password"
 
