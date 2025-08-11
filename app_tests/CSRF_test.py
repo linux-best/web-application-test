@@ -23,6 +23,8 @@ chrome_options.binary_location = "/usr/bin/google-chrome-stable"
 service_driver = Service("/usr/local/bin/chromedriver-linux64/chromedriver")
 driver = webdriver.Chrome(service=service_driver , options=chrome_options)
 
+print("1")
+
 def driver_quit():
     driver.quit()
 
@@ -34,7 +36,7 @@ def Bute_Force(new_paassword):
     )
     brute_field = driver.find_element(By.XPATH ,"//*[contains(text(),'CSRF')]")
     brute_field.click()
-
+    print("4")
     WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,passwd_new))
     )
@@ -46,6 +48,8 @@ def Bute_Force(new_paassword):
 
     pass_old.send_keys(new_paassword)
     pass_new.send_keys(new_paassword)
+
+    print("5")
 
     WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,"Change"))
@@ -78,6 +82,8 @@ def login_test():
     )
     password_input = driver.find_element(By.NAME ,passwd)
 
+    print("2")
+
     username_input.send_keys("admin")
     password_input.send_keys("admin")
 
@@ -91,6 +97,8 @@ def login_test():
   
     welcome_text = driver.find_element(By.ID ,"main_body").text
     print(welcome_text)
+
+    print("3")
 
     assert "Welcome to Damn Vulnerable Web Application!" in welcome_text
     assert Condition in welcome_text
