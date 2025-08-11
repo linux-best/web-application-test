@@ -5,8 +5,11 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 import time
 
+# Variable Scope
+login_element = False
 User = "username"
 passwd = "password"
 Condition = "You have logged in as 'admin'" 
@@ -23,10 +26,11 @@ chrome_options.binary_location = "/usr/bin/google-chrome-stable"
 service_driver = Service("/usr/local/bin/chromedriver-linux64/chromedriver")
 driver = webdriver.Chrome(service=service_driver , options=chrome_options)
 
+
 def driver_quit():
     driver.quit()
 
-def Bute_Force():
+def Brute_Force_Test_section(username,password):
     global User
     global passwd
     WebDriverWait(driver,5).until(
@@ -43,45 +47,79 @@ def Bute_Force():
         EC.presence_of_all_elements_located((By.NAME ,passwd))
     )
     password_input = driver.find_element(By.NAME ,passwd)
-
-    username_input.send_keys("admin")
-    password_input.send_keys("password")
-
+    username_input.send_keys(username)
+    password_input.send_keys(password)
     WebDriverWait(driver,5).until(
         EC.presence_of_all_elements_located((By.NAME ,"Login"))
     )
     login_button = driver.find_element(By.NAME ,"Login")
     login_button.click()
-
     WebDriverWait(driver,5).until(
         EC.presence_of_all_elements_located((By.ID ,"main_body"))
     )    
     welcome_text = driver.find_element(By.ID ,"main_body").text
 
     if "Welcome to the password protected area admin" in welcome_text :
-        print("you have goten access !")
+        return "you have goten access !"
     else:
-        print("you have failed to get access !!")
+        return "you have failed to get access !!"
 
-def login_test():
+def CSRF_Test_section(new_paassword):
+    passwd_new = "password_new"
+    passwd_conf = "password_conf"
+    WebDriverWait(driver,5).until(
+        EC.presence_of_all_elements_located((By.XPATH ,"//*[contains(text(),'CSRF')]"))
+    )
+    brute_field = driver.find_element(By.XPATH ,"//*[contains(text(),'CSRF')]")
+    brute_field.click()
+
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.NAME ,passwd_new))
+    )
+    pass_new = driver.find_element(By.NAME ,passwd_new)
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.NAME ,passwd_conf))
+    )
+    pass_old = driver.find_element(By.NAME ,passwd_conf)
+
+    pass_old.send_keys(new_paassword)
+    pass_new.send_keys(new_paassword)
+
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.NAME ,"Change"))
+    )
+    login_button = driver.find_element(By.NAME ,"Change")
+    login_button.click()
+
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.ID ,"main_body"))
+    )    
+    welcome_text = driver.find_element(By.CLASS_NAME ,"vulnerable_code_area").text
+
+    if "Password Changed." in welcome_text :
+        return "Password Changed !"
+    else:
+        return "Password Failed to Change !!"
+
+def login_test_section(login_user,login_passwd):
     assert User == "username"
     assert passwd == "password"
 
     driver.get('http://127.0.0.1:8081/login.php')
     print(driver.title)
-    WebDriverWait(driver,5).until(
+    WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,User))
     )
     username_input = driver.find_element(By.NAME ,User)
-    WebDriverWait(driver,5).until(
+    WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,passwd))
     )
     password_input = driver.find_element(By.NAME ,passwd)
 
-    username_input.send_keys("admin")
-    password_input.send_keys("password")
+    username_input.send_keys(login_user)
+    password_input.send_keys(login_passwd)
 
-    WebDriverWait(driver,5).until(
+    WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,"Login"))
     )
     login_button = driver.find_element(By.NAME ,"Login")
@@ -89,7 +127,7 @@ def login_test():
     login_button.click()
     time.sleep(5)
 
-    WebDriverWait(driver,5).until(
+    WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.ID ,"main_body"))
     )    
     welcome_text = driver.find_element(By.ID ,"main_body").text
@@ -99,10 +137,12 @@ def login_test():
     assert Condition in welcome_text
     
     if "Welcome to Damn Vulnerable Web Application!" in welcome_text :
-        print("login passed !")
+        return "login passed !"
     else:
-        print("login failed !!")
-    
-login_test()
-Bute_Force()
-driver_quit()
+        return "login failed !!"
+
+#login_test_section(login_user="admin",login_passwd="123")
+#CSRF_Test_section(new_paassword="password")
+#Brute_Force_Test_section(username_file="username.txt",password_file="password.txt")
+#driver_quit()
+
