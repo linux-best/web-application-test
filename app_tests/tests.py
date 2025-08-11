@@ -26,7 +26,6 @@ chrome_options.binary_location = "/usr/bin/google-chrome-stable"
 service_driver = Service("/usr/local/bin/chromedriver-linux64/chromedriver")
 driver = webdriver.Chrome(service=service_driver , options=chrome_options)
 
-
 def driver_quit():
     driver.quit()
     return "Done !"
