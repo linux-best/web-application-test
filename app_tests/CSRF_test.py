@@ -101,5 +101,5 @@ def login_test():
         print("login failed !!")
     
 login_test()
-Bute_Force(new_paassword="admin")
+Bute_Force(new_paassword="123")
 driver_quit()
