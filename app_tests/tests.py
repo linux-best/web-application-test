@@ -29,6 +29,7 @@ driver = webdriver.Chrome(service=service_driver , options=chrome_options)
 
 def driver_quit():
     driver.quit()
+    return "Done !"
 
 def Brute_Force_Test_section(username,password):
     global User
@@ -60,9 +61,9 @@ def Brute_Force_Test_section(username,password):
     welcome_text = driver.find_element(By.ID ,"main_body").text
 
     if "Welcome to the password protected area admin" in welcome_text :
-        return "you have goten access !"
+        return "Welcome to the password protected area admin !"
     else:
-        return "you have failed to get access !!"
+        return "access denied !!"
 
 def CSRF_Test_section(new_paassword):
     passwd_new = "password_new"
@@ -95,8 +96,8 @@ def CSRF_Test_section(new_paassword):
         EC.presence_of_all_elements_located((By.ID ,"main_body"))
     )    
     welcome_text = driver.find_element(By.CLASS_NAME ,"vulnerable_code_area").text
-
-    if "Password Changed." in welcome_text :
+    
+    if "Password Changed." in welcome_text :     
         return "Password Changed !"
     else:
         return "Password Failed to Change !!"
