@@ -107,5 +107,5 @@ def login_test(login_user,login_passwd,new_password):
     else:
         print("Password Failed to Change !!")
 
-login_test(login_user="admin",login_passwd="amir",new_password="123")
+login_test(login_user="admin",login_passwd="amir",new_password="amir")
 driver_quit()
