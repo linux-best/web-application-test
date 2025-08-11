@@ -79,7 +79,7 @@ def login_test():
     password_input = driver.find_element(By.NAME ,passwd)
 
     username_input.send_keys("admin")
-    password_input.send_keys("password")
+    password_input.send_keys("admin")
 
     WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,"Login"))
