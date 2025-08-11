@@ -32,7 +32,7 @@ def login_test():
     password_input = driver.find_element(By.NAME ,passwd)
 
     username_input.send_keys("admin")
-    password_input.send_keys("admin")
+    password_input.send_keys("password")
 
     login_button = driver.find_element(By.NAME ,"Login")
 
