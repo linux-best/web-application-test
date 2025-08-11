@@ -54,9 +54,9 @@ def Bute_Force(new_paassword):
     login_button.click()
 
     WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.CLASS_NAME ,"vulnerable_code_area"))
+        EC.presence_of_all_elements_located((By.ID ,"main_body"))
     )    
-    welcome_text = driver.find_element(By.CLASS_NAME ,"vulnerable_code_area").text
+    welcome_text = driver.find_element(By.ID ,"main_body").text
 
     if "Password Changed." in welcome_text :
         print("Password Changed !")
