@@ -14,7 +14,7 @@ import time
 User = "username"
 passwd = "password"
 Condition = "You have logged in as 'admin'" 
-File_Log = "/home/javande/log.txt.log"
+File_Log = "/home/javande/web-application-test/app_tests/Application_Test.log"
 chrome_options = Options()
 
 # Logging-Configuration
