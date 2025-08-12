@@ -50,7 +50,7 @@ pipeline {
             }
         } // email
         failure {
-            echo "Fuck !!"
+            echo "Failed !!"
             script {
                 emailext(
                     subject: "Build ${env.BUILD_NUMBER} of ${env.JOB_NAME} was failed",
