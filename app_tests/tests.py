@@ -5,11 +5,12 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException
+#from selenium.common.exceptions import NoSuchElementException
+from loguru import logger
+import sys
 import time
 
 # Variable Scope
-login_element = False
 User = "username"
 passwd = "password"
 Condition = "You have logged in as 'admin'" 
@@ -58,6 +59,7 @@ def Brute_Force_Test_section(username,password):
         EC.presence_of_all_elements_located((By.ID ,"main_body"))
     )    
     welcome_text = driver.find_element(By.ID ,"main_body").text
+    print(welcome_text)
 
     if "Welcome to the password protected area admin" in welcome_text :
         return "Welcome to the password protected area admin !"
@@ -95,7 +97,8 @@ def CSRF_Test_section(new_paassword):
         EC.presence_of_all_elements_located((By.ID ,"main_body"))
     )    
     welcome_text = driver.find_element(By.CLASS_NAME ,"vulnerable_code_area").text
-    
+    print(welcome_text)
+
     if "Password Changed." in welcome_text :     
         return "Password Changed !"
     else:
@@ -141,8 +144,8 @@ def login_test_section(login_user,login_passwd):
     else:
         return "login failed !!"
 
-#login_test_section(login_user="admin",login_passwd="123")
+#login_test_section(login_user="admin",login_passwd="password") 
 #CSRF_Test_section(new_paassword="password")
-#Brute_Force_Test_section(username_file="username.txt",password_file="password.txt")
+#Brute_Force_Test_section(username="admin",password="password")
 #driver_quit()
 
