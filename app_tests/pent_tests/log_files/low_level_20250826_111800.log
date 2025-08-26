@@ -1,0 +1,7 @@
+Low Level Penetration Test Results for http://127.0.0.1:8081/
+
+--- Nmap Scan ---
+Starting Nmap 7.80 ( https://nmap.org ) at 2025-08-26 11:18 EDT
+Nmap done: 0 IP addresses (0 hosts up) scanned in 0.04 seconds
+
+--- Nikto Scan ---

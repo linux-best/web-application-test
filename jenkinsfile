@@ -2,38 +2,74 @@ pipeline {
     agent any
 
     environment {
+        REPO_PROJECT_1 = 'https://github.com/linux-best/scripts/'
         REPO_PROJECT = 'https://github.com/linux-best/web-application-test/'
+        SONAR_HOME = "/opt/sonar-scanner/bin/sonar-scanner"
     }
 
     stages {
-        stage("Checkout SCM") {
+        stage("Checkout SCM => (web-application-test)") {
             steps {
                 echo "Checking out the ${env.REPO_PROJECT} from SCM"
                 git branch: 'main', url: "${env.REPO_PROJECT}"
             }
         }
+        stage("Checkout SCM => (scripts)") {
+            steps {
+                dir("scripts") {
+                    echo "Checking out the ${env.REPO_PROJECT_1} from SCM"
+                    git branch: 'main', url: "${env.REPO_PROJECT_1}"
+                }
+            }
+        }
         stage("Build") {
             steps {
                 sh "pwd"
-                sh "sudo pip install -r requirments.txt"
+                sh "sudo pip3 install -r requirments.txt"
             }
         }
         stage("Test") {
-            steps {
-                sh "pwd"
-                sh "pytest app_tests/CSRF_test.py --suppress-no-test-exit-code" // comment line for CSRF_test.py
+            stages {
+                stage("sonarqube => code analyze") {
+                    steps {
+                        dir("scripts") {
+                            withSonarQubeEnv('localSonarqube') {
+                            sh "${env.SONAR_HOME}"
+
+                            }
+                        }   
+                    }
+                }
+                stage("sonarqube => Quality_Gate") {
+                    steps {
+                        dir("scripts") {
+                            echo "stage ==> [Analysing the Code ......]"
+                            timeout(time: 15,unit: java.util.concurrent.TimeUnit.MINUTES) {
+                                script{
+                                    def qg = waitForQualityGate()
+                                    if (qg.status == 'OK') {
+                                        echo "Pipeline CodeAnalysis have been successfully Done: ${qg.status}"
+                                    } else {
+                                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                                    }
+                                }
+                            } 
+                        }
+                    }
+                }
+                stage("Web-scraping => web-application test") {
+                    steps {
+                        sh "pwd"
+                        sh "pytest -v -s app_tests/unit_test.py"
+                        echo "Application Ready to Deploy the (Peneration Build)"
+                    }
+                }
             }
         }
-        stage("Deploy") {
+        stage("Staging") {
             steps {
-                echo "Application Ready to Deploy the (peneration test)"
-                sh "sudo python3 app_tests/CSRF_test.py"
-            }
-        }
-        stage("peneration_test") {
-            steps {
-                echo "Application Ready to Deploy the (peneration test)"
-                // run the pen build
+                echo "Executing the Penetration Build ........."
+                build job: 'acunetix', wait: true , propagate: false
             }
         }
     }
