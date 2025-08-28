@@ -65,14 +65,19 @@ def select_level(level_required):
     submit_Button = driver.find_element(By.NAME ,"seclev_submit")
     submit_Button.click()
 
-    WebDriverWait(driver,5).until(
-        EC.presence_of_all_elements_located((By.ID ,"main_body"))
-    )    
-    welcome_text = driver.find_element(By.ID ,"main_body").text    
-    print(welcome_text)
+    #WebDriverWait(driver,5).until(
+    #    EC.presence_of_all_elements_located((By.ID ,"main_body"))
+    #)    
+    #welcome_text = driver.find_element(By.ID ,"main_body").text    
+    #print(welcome_text)
 
-    if select_element == level_required :
-        print(f"level changed into {level_required} !")
+    WebDriverWait(driver,5).until(
+        EC.presence_of_all_elements_located((By.CLASS_NAME ,"message"))
+    )    
+    level_msg = driver.find_element(By.ID ,"message").text
+
+    if level_required in level_msg:
+        print(level_msg)
         return "level successfully changed !"
     else:
         return "level failed to change !!"
