@@ -60,10 +60,22 @@ def select_level(level_required):
     select_element.select_by_visible_text(level_required)
 
     WebDriverWait(driver,5).until(
+        EC.presence_of_all_elements_located((By.NAME ,"seclev_submit"))
+    )
+    submit_Button = driver.find_element(By.NAME ,"seclev_submit")
+    submit_Button.click()
+
+    WebDriverWait(driver,5).until(
         EC.presence_of_all_elements_located((By.ID ,"main_body"))
     )    
     welcome_text = driver.find_element(By.ID ,"main_body").text    
     print(welcome_text)
+
+    if select_element == level_required :
+        print(f"level changed into {level_required} !")
+        return "level successfully changed !"
+    else:
+        return "level failed to change !!"
 
 @logger.catch("ERROR")
 def Brute_Force_Test_section(username,password):
