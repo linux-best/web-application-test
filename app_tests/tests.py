@@ -99,7 +99,7 @@ def Brute_Force_Test_section(username,password):
         return "access denied !!"
 
 @logger.catch("ERROR")
-def CSRF_Test_section(new_paassword):
+def CSRF_Test_section(old_password,new_paassword):
     passwd_new = "password_new"
     passwd_conf = "password_conf"
     
@@ -114,16 +114,21 @@ def CSRF_Test_section(new_paassword):
 
     with logger.contextualize(Path="DVWA-application/CSRF"):
         logger.info("Section Located !")
-
+                
     WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.NAME ,passwd_new))
+        EC.presence_of_all_elements_located((By.NAME ,password_current))
     )
-    pass_new = driver.find_element(By.NAME ,passwd_new)
+    pass_current = driver.find_element(By.NAME ,password_current)
     WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.NAME ,passwd_conf))
+        EC.presence_of_all_elements_located((By.NAME ,password_new))
     )
-    pass_old = driver.find_element(By.NAME ,passwd_conf)
+    pass_new = driver.find_element(By.NAME ,password_new)
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.NAME ,password_conf))
+    )
+    pass_old = driver.find_element(By.NAME ,password_conf)
 
+    pass_current.send_keys(old_password)
     pass_old.send_keys(new_paassword)
     pass_new.send_keys(new_paassword)
 
