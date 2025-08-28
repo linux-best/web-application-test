@@ -116,17 +116,17 @@ def CSRF_Test_section(old_password,new_paassword):
         logger.info("Section Located !")
                 
     WebDriverWait(driver,5).until(
-        EC.presence_of_all_elements_located((By.NAME ,password_current))
+        EC.presence_of_all_elements_located((By.NAME ,"password_current"))
     )
-    pass_current = driver.find_element(By.NAME ,password_current)
+    pass_current = driver.find_element(By.NAME ,"password_current")
     WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.NAME ,password_new))
+        EC.presence_of_all_elements_located((By.NAME ,"password_new"))
     )
-    pass_new = driver.find_element(By.NAME ,password_new)
+    pass_new = driver.find_element(By.NAME ,"password_new")
     WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.NAME ,password_conf))
+        EC.presence_of_all_elements_located((By.NAME ,"password_conf"))
     )
-    pass_old = driver.find_element(By.NAME ,password_conf)
+    pass_old = driver.find_element(By.NAME ,"password_conf")
 
     pass_current.send_keys(old_password)
     pass_old.send_keys(new_paassword)
