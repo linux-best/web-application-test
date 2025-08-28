@@ -115,7 +115,13 @@ def CSRF_Test_section(old_password,new_paassword):
 
     with logger.contextualize(Path="DVWA-application/CSRF"):
         logger.info("Section Located !")
-                
+    
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.ID ,"main_body"))
+    )    
+    welcome_text = driver.find_element(By.CLASS_NAME ,"vulnerable_code_area").text
+    print(welcome_text)
+
     WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,passwd_current))
     )
@@ -144,10 +150,10 @@ def CSRF_Test_section(old_password,new_paassword):
     login_button = driver.find_element(By.NAME ,"Change")
     login_button.click()
 
-    WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.ID ,"main_body"))
-    )    
-    welcome_text = driver.find_element(By.CLASS_NAME ,"vulnerable_code_area").text
+    #WebDriverWait(driver,10).until(
+    #    EC.presence_of_all_elements_located((By.ID ,"main_body"))
+    #)    
+    #welcome_text = driver.find_element(By.CLASS_NAME ,"vulnerable_code_area").text
     
     with logger.contextualize(Current_Password=new_paassword):
         logger.success("Passwd Changed !")
