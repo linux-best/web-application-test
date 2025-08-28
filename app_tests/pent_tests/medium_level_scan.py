@@ -8,7 +8,7 @@ if len(sys.argv) != 2:
 
 target = sys.argv[1]
 log_file = f"log_files/medium_level_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
-touch = subprocess.run(["touch",target])
+touch = subprocess.run(["touch",log_file])
 
 
 with open(log_file, "w") as f:
