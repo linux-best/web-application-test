@@ -75,10 +75,13 @@ def select_level(level_required):
         EC.presence_of_all_elements_located((By.CLASS_NAME ,"message"))
     )    
     level_msg = driver.find_element(By.CLASS_NAME ,"message").text
-    print(level_msg)
 
-    if level_required in level_msg:
-        #print(level_msg)
+    level_required = str(level_required)
+    level_required = level_required.lower()
+
+    if  level_msg == f"Security level set to {level_required}" :
+        with logger.contextualize(status=level_msg):
+            logger.info("Test_Level Done *")
         return "level successfully changed !"
     else:
         return "level failed to change !!"
