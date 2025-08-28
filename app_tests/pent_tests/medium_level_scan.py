@@ -10,12 +10,11 @@ target = sys.argv[1]
 log_file = f"log_files/medium_level_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
 touch = subprocess.run(["touch",log_file])
 
-
 with open(log_file, "w") as f:
     f.write(f"Medium Level Penetration Test Results for {target}\n\n")
     # Nmap service/version detection
     f.write("--- Nmap Service/Version Detection ---\n")
-    nmap_cmd = ["nmap", "-sV", target]
+    nmap_cmd = ["nmap", "-sV", "localhost"]
     nmap_result = subprocess.run(nmap_cmd, capture_output=True, text=True)
     f.write(nmap_result.stdout)
     f.write("\n")

@@ -14,7 +14,7 @@ with open(log_file, "w") as f:
     f.write(f"Low Level Penetration Test Results for {target}\n\n")
     # Nmap basic port scan
     f.write("--- Nmap Scan ---\n")
-    nmap_cmd = ["nmap", target]
+    nmap_cmd = ["nmap","-sT","localhost"]
     nmap_result = subprocess.run(nmap_cmd, capture_output=True, text=True)
     f.write(nmap_result.stdout)
     f.write("\n")

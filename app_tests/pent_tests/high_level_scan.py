@@ -15,7 +15,7 @@ with open(log_file, "w") as f:
     f.write(f"High Level Penetration Test Results for {target}\n\n")
     # Nmap aggressive scan
     f.write("--- Nmap Aggressive Scan ---\n")
-    nmap_cmd = ["nmap", "-A", target]
+    nmap_cmd = ["nmap", "-A", "localhost"]
     nmap_result = subprocess.run(nmap_cmd, capture_output=True, text=True)
     f.write(nmap_result.stdout)
     f.write("\n")
