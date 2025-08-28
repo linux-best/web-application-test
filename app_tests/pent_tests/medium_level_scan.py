@@ -7,8 +7,7 @@ if len(sys.argv) != 2:
     sys.exit(1)
 
 target = sys.argv[1]
-log_file = f"log_files/medium_level_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
-touch = subprocess.run(["touch",log_file])
+log_file = f"app_tests/pent_tests/log_files/medium_level_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
 
 with open(log_file, "w") as f:
     f.write(f"Medium Level Penetration Test Results for {target}\n\n")
