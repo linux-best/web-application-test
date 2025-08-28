@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import *
 from selenium.webdriver.support import expected_conditions as EC
 #from selenium.common.exceptions import NoSuchElementException
 from loguru import logger
@@ -47,6 +47,23 @@ with logger.contextualize(Drver_Path="/usr/local/bin/chromedriver-linux64/chrome
 def driver_quit():
     driver.quit()
     return "Done !"
+
+@logger.catch("ERROR")
+def select_level(level_required):
+    WebDriverWait(driver,5).until(
+        EC.presence_of_all_elements_located((By.XPATH ,"//*[contains(text(),'DVWA Security')]"))
+    )
+    brute_field = driver.find_element(By.XPATH ,"//*[contains(text(),'DVWA Security')]")
+    brute_field.click()
+
+    select_element = Select(driver.find_element(By.NAME,"security"))
+    select_element.select_by_visible_text(level_required)
+
+    WebDriverWait(driver,5).until(
+        EC.presence_of_all_elements_located((By.ID ,"main_body"))
+    )    
+    welcome_text = driver.find_element(By.ID ,"main_body").text    
+    print(welcome_text)
 
 @logger.catch("ERROR")
 def Brute_Force_Test_section(username,password):
@@ -117,12 +134,6 @@ def CSRF_Test_section(old_password,new_paassword):
         logger.info("Section Located !")
     
     WebDriverWait(driver,10).until(
-        EC.presence_of_all_elements_located((By.ID ,"main_body"))
-    )    
-    welcome_text = driver.find_element(By.CLASS_NAME ,"vulnerable_code_area").text
-    print(welcome_text)
-
-    WebDriverWait(driver,10).until(
         EC.presence_of_all_elements_located((By.NAME ,passwd_current))
     )
     pass_current = driver.find_element(By.NAME ,passwd_current)
@@ -150,10 +161,10 @@ def CSRF_Test_section(old_password,new_paassword):
     login_button = driver.find_element(By.NAME ,"Change")
     login_button.click()
 
-    #WebDriverWait(driver,10).until(
-    #    EC.presence_of_all_elements_located((By.ID ,"main_body"))
-    #)    
-    #welcome_text = driver.find_element(By.CLASS_NAME ,"vulnerable_code_area").text
+    WebDriverWait(driver,10).until(
+        EC.presence_of_all_elements_located((By.ID ,"main_body"))
+    )    
+    welcome_text = driver.find_element(By.CLASS_NAME ,"vulnerable_code_area").text
     
     with logger.contextualize(Current_Password=new_paassword):
         logger.success("Passwd Changed !")
