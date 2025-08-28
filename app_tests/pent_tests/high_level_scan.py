@@ -8,6 +8,8 @@ if len(sys.argv) != 2:
 
 target = sys.argv[1]
 log_file = f"log_files/high_level_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+touch = subprocess.run(["touch",target])
+
 
 with open(log_file, "w") as f:
     f.write(f"High Level Penetration Test Results for {target}\n\n")
@@ -47,11 +49,4 @@ with open(log_file, "w") as f:
     nuclei_result = subprocess.run(nuclei_cmd, capture_output=True, text=True)
     f.write(nuclei_result.stdout)
     f.write("\n")
-    # OWASP ZAP active scan (assumes zap-cli is installed)
-    f.write("--- OWASP ZAP Active Scan ---\n")
-    zap_cmd = ["zap-cli", "-p", "8080", "scan", target]
-    zap_result = subprocess.run(zap_cmd, capture_output=True, text=True)
-    f.write(zap_result.stdout)
-    f.write("\n")
-
 print(f"High level scan complete. Results saved to {log_file}")
