@@ -115,7 +115,7 @@ def CSRF_Test_section(old_password,new_paassword):
     with logger.contextualize(Path="DVWA-application/CSRF"):
         logger.info("Section Located !")
                 
-    WebDriverWait(driver,10).until(
+    WebDriverWait(driver,5).until(
         EC.presence_of_all_elements_located((By.NAME ,password_current))
     )
     pass_current = driver.find_element(By.NAME ,password_current)
